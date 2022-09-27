@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +47,20 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Anda Memilih " + customer.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (view.getId() == holder.itemView.getId()) {
+                    arrayList.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
+
+                    Snackbar.make(view, customer.getName() + " has been removed", Snackbar.LENGTH_LONG).show();
+                }
+                return true;
             }
         });
     }
