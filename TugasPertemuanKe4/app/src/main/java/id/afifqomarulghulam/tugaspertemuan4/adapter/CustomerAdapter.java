@@ -1,5 +1,6 @@
 package id.afifqomarulghulam.tugaspertemuan4.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import id.afifqomarulghulam.tugaspertemuan4.DetailActivity;
 import id.afifqomarulghulam.tugaspertemuan4.R;
 import id.afifqomarulghulam.tugaspertemuan4.models.Customer;
 
@@ -44,8 +46,15 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
                 .into(holder.photo);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            String name = customer.getName();
+            String phone = customer.getPhone();
+            String photo = customer.getImageUrl();
+
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                intent.putExtra("Key_CustomerActivity", new String[]{name, phone, photo});
+                view.getContext().startActivity(intent);
                 Toast.makeText(view.getContext(), "Anda Memilih " + customer.getName(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -58,7 +67,23 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
 
-                    Snackbar.make(view, customer.getName() + " has been removed", Snackbar.LENGTH_LONG).show();
+                    Snackbar snackbar = Snackbar.make(view, customer.getName() + " has been removed", Snackbar.LENGTH_LONG);
+
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            arrayList.add(new Customer(
+                                            customer.getName(),
+                                            customer.getPhone(),
+                                            customer.getImageUrl()
+                                    ));
+
+                                    notifyItemRemoved(holder.getAdapterPosition());
+                                    notifyItemRangeChanged(holder.getAdapterPosition(), arrayList.size());
+                                }
+                    });
+
+                    snackbar.show();
                 }
                 return true;
             }

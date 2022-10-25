@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="2dp"
+    app:cardCornerRadius="25dp"
+    android:id="@+id/booking_list_item"
+    app:cardBackgroundColor="@color/grey_min">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/txtRestoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resto Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#D9D9D9"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginLeft="16dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="144dp"
+            android:layout_toEndOf="@+id/txtRestoName"
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+        <TextView
+            android:id="@+id/txtTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Name"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:textColor="#D9D9D9"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:visibility="gone"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/txtRestoName" />
+
+        <TextView
+            android:id="@+id/txtTableType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Type"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:textColor="#D9D9D9"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/txtTable"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtTableQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Type"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:textColor="#D9D9D9"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/txtTableType"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtIdTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Type"
+            android:visibility="gone"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/txtTableQty" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
