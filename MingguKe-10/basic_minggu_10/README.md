@@ -20,3 +20,5 @@ samples, guidance on mobile development, and a full API reference.
 ---
 
 Halaman Utama dari aplikasi ini
+
+![](images/home.png)
