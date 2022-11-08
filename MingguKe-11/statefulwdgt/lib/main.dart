@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
   void _conversionState() {
     setState(() {
       _inputUser = double.parse(myController.text);
-      if (dropDownVal == "Kelvin") {
+      if (_dropDownVal == "Kelvin") {
         _result = _inputUser + 273;
       } else {
         _result = (4 / 5) * _inputUser;
@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  String dropDownVal = listItem.first;
+  String _dropDownVal = listItem.first;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +90,10 @@ class _HomeState extends State<Home> {
                         listItem.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem(value: value, child: Text(value));
                     }).toList(),
-                    value: dropDownVal,
+                    value: _dropDownVal,
                     onChanged: (String? val) {
                       setState(() {
-                        dropDownVal = val!;
+                        _dropDownVal = val!;
                       });
                     }),
                 const Text(
@@ -108,7 +108,7 @@ class _HomeState extends State<Home> {
             ),
             ElevatedButton(
               onPressed: _conversionState,
-              child: const Text("Konversi Suhu"),
+              child: Text('Konversi Suhu Ke $_dropDownVal'),
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50)),
             )
