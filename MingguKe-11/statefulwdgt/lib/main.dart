@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
+const listItem = <String>["Kelvin", "Reamur"];
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -61,6 +63,8 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
+  String dropDownVal = listItem.first;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,11 +77,30 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InputField(myController: myController),
-            Result(
-                kelvindeg: "Suhu di Kelvin",
-                kelvin: _kelvin,
-                reamurdeg: "Suhu di reamur",
-                reamur: _reamur),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                    items:
+                        listItem.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem(value: value, child: Text(value));
+                    }).toList(),
+                    value: dropDownVal,
+                    onChanged: (String? val) {
+                      setState(() {
+                        dropDownVal = val!;
+                      });
+                    }),
+                const Text(
+                  "Hasil",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+                ),
+                Text(
+                  "146",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
             ElevatedButton(
               onPressed: _conversionState,
               child: const Text("Konversi Suhu"),
@@ -91,8 +114,8 @@ class _HomeState extends State<Home> {
   }
 }
 
-class Result extends StatelessWidget {
-  const Result({
+class MultiResult extends StatelessWidget {
+  const MultiResult({
     Key? key,
     required this.kelvindeg,
     required double kelvin,
