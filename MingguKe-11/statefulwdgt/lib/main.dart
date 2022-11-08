@@ -46,14 +46,19 @@ class _HomeState extends State<Home> {
   double _kelvin = 0;
   double _reamur = 0;
   // int _count = 0;
+  // String _newValue = "Kelvin";
+  double _result = 0;
 
   TextEditingController myController = TextEditingController();
 
   void _conversionState() {
     setState(() {
       _inputUser = double.parse(myController.text);
-      _kelvin = _inputUser + 273;
-      _reamur = (4 / 5) * _inputUser;
+      if (dropDownVal == "Kelvin") {
+        _result = _inputUser + 273;
+      } else {
+        _result = (4 / 5) * _inputUser;
+      }
     });
   }
 
@@ -96,7 +101,7 @@ class _HomeState extends State<Home> {
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
                 ),
                 Text(
-                  "146",
+                  _result.toStringAsFixed(1),
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )
               ],
