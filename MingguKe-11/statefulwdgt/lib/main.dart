@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
   double _inputUser = 0;
   double _kelvin = 0;
   double _reamur = 0;
-  int _count = 0;
+  // int _count = 0;
 
   TextEditingController myController = TextEditingController();
 
@@ -72,45 +72,86 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextFormField(
-              controller: myController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  hintText: "Masukkan Suhu dalam Celcius",
-                  contentPadding: EdgeInsets.all(8)),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    const Text("Suhu dalam kelvin"),
-                    Text(
-                      '$_kelvin',
-                      style: const TextStyle(fontSize: 30),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    const Text("Suhu dalam reamur"),
-                    Text(
-                      '$_reamur',
-                      style: const TextStyle(fontSize: 30),
-                    )
-                  ],
-                )
-              ],
-            ),
+            InputField(myController: myController),
+            Result(
+                kelvindeg: "Suhu di Kelvin",
+                kelvin: _kelvin,
+                reamurdeg: "Suhu di reamur",
+                reamur: _reamur),
             ElevatedButton(
               onPressed: _conversionState,
-              child: Text("Konversi Suhu"),
+              child: const Text("Konversi Suhu"),
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50)),
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class Result extends StatelessWidget {
+  const Result({
+    Key? key,
+    required this.kelvindeg,
+    required double kelvin,
+    required this.reamurdeg,
+    required double reamur,
+  })  : _kelvin = kelvin,
+        _reamur = reamur,
+        super(key: key);
+
+  final double _kelvin;
+  final double _reamur;
+
+  final String kelvindeg;
+  final String reamurdeg;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          children: [
+            Text(kelvindeg),
+            Text(
+              '$_kelvin',
+              style: const TextStyle(fontSize: 30),
+            )
+          ],
+        ),
+        Column(
+          children: [
+            Text(reamurdeg),
+            Text(
+              '$_reamur',
+              style: const TextStyle(fontSize: 30),
+            )
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class InputField extends StatelessWidget {
+  const InputField({
+    Key? key,
+    required this.myController,
+  }) : super(key: key);
+
+  final TextEditingController myController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: myController,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+          hintText: "Masukkan Suhu dalam Celcius",
+          contentPadding: EdgeInsets.all(8)),
     );
   }
 }
