@@ -143,9 +143,7 @@ class _HomeState extends State<Home> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 50,
-                  child: Center(
-                    child: Text('Hasil dari ${historyItem[index]}'),
-                  ),
+                  child: Text('Hasil dari konversi  ${historyItem[index]}'),
                 );
               },
             ))
