@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
       body: Container(
         margin: const EdgeInsets.all(8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Slider(
               value: _currentVal,
@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                 });
               },
             ),
-
+            Text("Nilai celcius: ${_currentVal}"),
             // InputField(myController: myController),
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -143,7 +143,8 @@ class _HomeState extends State<Home> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 50,
-                  child: Text('Hasil dari konversi  ${historyItem[index]}'),
+                  child: Text(
+                      'Hasil ${_currentVal} dari konversi ${listItem[index]} ${historyItem[index]}'),
                 );
               },
             ))
