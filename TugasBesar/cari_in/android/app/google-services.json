@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "369301471942",
+    "project_id": "tugasbesar-a4732",
+    "storage_bucket": "tugasbesar-a4732.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369301471942:android:852b65b6208bb786988dc7",
+        "android_client_info": {
+          "package_name": "com.example.cari_in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369301471942-d7trnjh15h4qp1cdtp7mrou6694b6ssc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cari_in",
+            "certificate_hash": "ee39bfda6f582928f933c0b320b9ad4be2857029"
+          }
+        },
+        {
+          "client_id": "369301471942-dpdqkohfuauefjc7g4nsc3jj86ksj41u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK574ETVWBP3eUHxUN-4ojDLdyyAvO89A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369301471942-dpdqkohfuauefjc7g4nsc3jj86ksj41u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
