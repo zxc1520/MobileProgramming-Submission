@@ -15,15 +15,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _passw = TextEditingController();
-
-  Future _signIn() async {
-    await Firebase.initializeApp();
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _email.text.trim(), password: _passw.text.trim());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,73 +39,6 @@ class _SignInState extends State<SignIn> {
             ),
             Column(
               children: [
-                TextFormField(
-                  controller: _email,
-                  style: const TextStyle(
-                    color: Color(0XFF360828),
-                  ),
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                          borderSide:
-                              const BorderSide(color: Color(0xFF360828))),
-                      hintText: 'Email',
-                      hintStyle: GoogleFonts.ubuntu()),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                TextFormField(
-                  controller: _passw,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40.0)),
-                      hintText: 'Password',
-                      hintStyle: GoogleFonts.ubuntu()),
-                ),
-                const SizedBox(
-                  height: 35,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _signIn().then((result) {
-                        if (result != null) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage()));
-                        }
-                      });
-                    },
-                    child: Text(
-                      "Sign In",
-                      style: GoogleFonts.ubuntu(),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40)),
-                        primary: const Color(0xFF320624)),
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                    text: "Don't have an account ? ",
-                    style: GoogleFonts.ubuntu(color: Colors.black38),
-                  ),
-                  TextSpan(
-                      text: "Sign Up",
-                      style: GoogleFonts.ubuntu(color: Color(0xFF4A193D)),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = (() {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SignUp()));
-                        }))
-                ])),
                 Container(
                   width: double.infinity,
                   child: OutlinedButton(
@@ -132,7 +56,6 @@ class _SignInState extends State<SignIn> {
                       children: [
                         Image.network(
                           'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png',
-                          width: 20,
                           height: 20,
                         ),
                         Text(
