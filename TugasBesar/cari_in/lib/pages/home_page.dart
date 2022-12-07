@@ -1,10 +1,10 @@
+import 'package:cari_in/controllers/lost_item.dart';
+import 'package:cari_in/models/lost_item.dart';
 import 'package:cari_in/pages/create_page.dart';
-import 'package:cari_in/pages/get_started.dart';
-import 'package:cari_in/services/signin_with_google.dart';
+import 'package:cari_in/pages/detail_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,47 +18,112 @@ class HomePage extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.menu),
-                Image.network(
-                  user.photoURL!,
-                  width: 25,
-                  height: 25,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: SizedBox.fromSize(
+                    size: const Size.fromRadius(20),
+                    child: Image.network(
+                      user.photoURL!,
+                      width: 35,
+                      height: 35,
+                    ),
+                  ),
                 )
               ],
             ),
-            Column(
-              children: [
-                Text(
-                  "Hi, ${user.displayName}",
-                  style: GoogleFonts.ubuntu(
-                      fontSize: 30, fontWeight: FontWeight.w400),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(40)),
-                      hintText: "Search Anything that you've lost",
-                      hintStyle: GoogleFonts.ubuntu()),
-                ),
-              ],
-            ),
-            // ListView()
+            WelcomeScreen(user: user),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: StreamBuilder<List<LostItem>>(
+                  stream: readLost(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text("Something wrong !");
+                    } else if (snapshot.hasData) {
+                      final item = snapshot.data!;
+
+                      return Expanded(
+                        child: ListView(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          children: item
+                              .map((lostitem) => buildItem(lostitem, context))
+                              .toList(),
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: const CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF2C001E),
         onPressed: () {
           Navigator.of(context).push(
               MaterialPageRoute(builder: ((context) => const CreatePage())));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  // Stream<List<User>> readUser() => FirebaseFirestore.instance.collection('LostItem')
+  Widget buildItem(LostItem lostItem, BuildContext context) => ListTile(
+        title: Text(
+          lostItem.name ?? "",
+          style: GoogleFonts.ubuntu(),
+        ),
+        subtitle: Text(lostItem.desc ?? "", style: GoogleFonts.ubuntu()),
+        onTap: () {
+          final doc = FirebaseFirestore.instance
+              .collection('LostItem')
+              .doc(lostItem.uid);
+
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DetailPage(lostItem.uid, lostItem.name,
+                  lostItem.desc, lostItem.datelost)));
+          // Navigator.pushNamed(context, '/detail', arguments: doc);
+        },
+      );
+}
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Hi, ${user.displayName}",
+          style: GoogleFonts.ubuntu(fontSize: 30, fontWeight: FontWeight.w400),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(40)),
+              hintText: "Search Anything that you've lost",
+              hintStyle: GoogleFonts.ubuntu()),
+        ),
+      ],
+    );
+  }
 }

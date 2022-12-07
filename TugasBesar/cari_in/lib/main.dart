@@ -1,3 +1,4 @@
+import 'package:cari_in/pages/detail_page.dart';
 import 'package:cari_in/pages/get_started.dart';
 import 'package:cari_in/pages/sign_up.dart';
 import 'package:cari_in/services/app_launcher.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: AppLauncher(),
       debugShowCheckedModeBanner: false,
+      // routes: {'/detail': (context) => const DetailPage()},
     );
   }
 }

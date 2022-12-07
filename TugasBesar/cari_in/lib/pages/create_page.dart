@@ -1,7 +1,9 @@
-import 'package:cari_in/controllers/create.dart';
+import 'package:cari_in/controllers/lost_item.dart';
+import 'package:cari_in/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CreatePage extends StatefulWidget {
@@ -59,9 +61,14 @@ class _CreatePageState extends State<CreatePage> {
                   final desk = desc.text;
                   final hari = datelost.text;
 
-                  createUser(name: nama, desc: desk, datelost: hari);
+                  createLost(name: nama, desc: desk, datelost: hari);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomePage()));
                 },
-                child: Text("Add Data"))
+                child: Text(
+                  "Publish Lost Item",
+                  style: GoogleFonts.ubuntu(),
+                ))
           ],
         ),
       ),
