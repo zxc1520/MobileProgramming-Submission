@@ -3,13 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future createLost(
-    {required String name,
+    {required String path,
+    required String name,
     required String desc,
     required String datelost}) async {
   final document = FirebaseFirestore.instance.collection('LostItem').doc();
 
-  final lostitem =
-      LostItem(uid: document.id, name: name, desc: desc, datelost: datelost);
+  final lostitem = LostItem(
+      path: document.path,
+      uid: document.id,
+      name: name,
+      desc: desc,
+      datelost: datelost);
   final json = lostitem.toJson();
 
   await document.set(json);

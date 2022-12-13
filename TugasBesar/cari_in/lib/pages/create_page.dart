@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:cari_in/controllers/lost_item.dart';
 import 'package:cari_in/pages/home_page.dart';
+import 'package:cari_in/services/signin_with_google.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePage extends StatefulWidget {
   const CreatePage({Key? key}) : super(key: key);
@@ -18,6 +21,18 @@ class _CreatePageState extends State<CreatePage> {
   final TextEditingController desc = TextEditingController();
   final TextEditingController datelost = TextEditingController();
 
+  File? image;
+
+  Future getimage() async {
+    final ImagePicker _picker = ImagePicker();
+
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+
+    image = File(photo!.path);
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +40,10 @@ class _CreatePageState extends State<CreatePage> {
         padding: const EdgeInsets.all(15),
         child: Column(
           children: [
+            Text(
+              "Publikasikan barang temuan",
+              style: GoogleFonts.ubuntu(fontSize: 20),
+            ),
             TextFormField(
               controller: name,
               decoration: InputDecoration(hintText: "Name"),
@@ -55,13 +74,33 @@ class _CreatePageState extends State<CreatePage> {
                 }
               },
             ),
+            image != null
+                ? Column(
+                    children: [
+                      Container(
+                          height: 200,
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.file(
+                            image!,
+                            fit: BoxFit.cover,
+                          )),
+                    ],
+                  )
+                : Container(),
+            ElevatedButton(
+                onPressed: () async {
+                  await getimage();
+                },
+                child: Text("Take Photo")),
             ElevatedButton(
                 onPressed: () {
+                  final path = image.toString();
                   final nama = name.text;
                   final desk = desc.text;
                   final hari = datelost.text;
 
-                  createLost(name: nama, desc: desk, datelost: hari);
+                  createLost(
+                      path: path, name: nama, desc: desk, datelost: hari);
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => HomePage()));
                 },

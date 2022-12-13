@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cari_in/controllers/lost_item.dart';
 import 'package:cari_in/models/lost_item.dart';
 import 'package:cari_in/pages/create_page.dart';
@@ -83,6 +85,7 @@ class HomePage extends StatelessWidget {
           style: GoogleFonts.ubuntu(),
         ),
         subtitle: Text(lostItem.desc ?? "", style: GoogleFonts.ubuntu()),
+        trailing: Image.file(File(lostItem.path ?? "")),
         onTap: () {
           final doc = FirebaseFirestore.instance
               .collection('LostItem')
