@@ -6,11 +6,17 @@ Future createLost(
     {required String path,
     required String name,
     required String desc,
-    required String datelost}) async {
+    required String datelost,
+    required String status}) async {
   final document = FirebaseFirestore.instance.collection('LostItem').doc();
 
   final lostitem = LostItem(
-      path: path, uid: document.id, name: name, desc: desc, datelost: datelost);
+      path: path,
+      uid: document.id,
+      name: name,
+      desc: desc,
+      datelost: datelost,
+      status: status);
   final json = lostitem.toJson();
 
   await document.set(json);

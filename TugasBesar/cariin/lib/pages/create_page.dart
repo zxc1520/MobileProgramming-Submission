@@ -122,9 +122,14 @@ class _CreatePageState extends State<CreatePage> {
                     final nama = name.text;
                     final desk = desc.text;
                     final hari = datelost.text;
+                    final status = "Unclaimed";
 
                     createLost(
-                        path: path, name: nama, desc: desk, datelost: hari);
+                        path: path,
+                        name: nama,
+                        desc: desk,
+                        datelost: hari,
+                        status: status);
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => HomePage()));
                   },

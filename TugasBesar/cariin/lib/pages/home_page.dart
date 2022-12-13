@@ -113,8 +113,13 @@ class HomePage extends StatelessWidget {
                 .doc(lostItem.uid);
 
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DetailPage(lostItem.uid, lostItem.path,
-                    lostItem.name, lostItem.desc, lostItem.datelost)));
+                builder: (context) => DetailPage(
+                    lostItem.uid,
+                    lostItem.path,
+                    lostItem.name,
+                    lostItem.desc,
+                    lostItem.datelost,
+                    lostItem.status)));
             // Navigator.pushNamed(context, '/detail', arguments: doc);
           },
         ),

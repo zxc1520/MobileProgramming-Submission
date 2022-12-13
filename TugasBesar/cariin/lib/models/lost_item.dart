@@ -4,20 +4,23 @@ class LostItem {
   final String? name;
   final String? desc;
   final String? datelost;
+  final String? status;
 
   LostItem(
       {this.uid = '',
       required this.path,
       required this.name,
       required this.desc,
-      required this.datelost});
+      required this.datelost,
+      required this.status});
 
   Map<String, dynamic> toJson() => {
         'uid': uid,
         'path': path,
         'name': name,
         'desc': desc,
-        'datelost': datelost
+        'datelost': datelost,
+        'status': status
       };
 
   static LostItem fromJson(Map<String, dynamic> json) => LostItem(
@@ -25,5 +28,6 @@ class LostItem {
       path: json['path'],
       name: json['name'],
       desc: json['desc'],
-      datelost: json['datelost']);
+      datelost: json['datelost'],
+      status: json['status']);
 }
