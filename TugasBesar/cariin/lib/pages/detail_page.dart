@@ -44,64 +44,53 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-      ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              _path!,
-              width: double.infinity,
-            ),
-            Text(
-              _name!,
-              style:
-                  GoogleFonts.ubuntu(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-            Text(
-              '${_status!} by ${user.displayName}',
-              style: GoogleFonts.ubuntu(color: const Color(0xFF2C001E)),
-            ),
-            Text(_datelost!, style: GoogleFonts.ubuntu(fontSize: 14)),
-            Text(
-              _desc!,
-              style: GoogleFonts.ubuntu(fontSize: 15),
-            ),
-            _buildClaimedButton()
-          ],
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        width: double.infinity,
-        child: ElevatedButton(
-          child: Text(
-            "Close",
-            style: GoogleFonts.ubuntu(),
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                _path!,
+              ),
+              Text(
+                _name!,
+                style: GoogleFonts.ubuntu(
+                    fontSize: 25, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                '${_status!}',
+                style: GoogleFonts.ubuntu(color: const Color(0xFF2C001E)),
+              ),
+              Text(_datelost!, style: GoogleFonts.ubuntu(fontSize: 14)),
+              Text(
+                _desc!,
+                style: GoogleFonts.ubuntu(fontSize: 15),
+              ),
+            ],
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40)),
-              primary: const Color(0xFF2B001D)),
         ),
-      ),
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: _buildClaimedButton());
   }
 
   Widget _buildClaimedButton() {
     final doc = FirebaseFirestore.instance.collection("LostItem").doc(_uid);
-    return OutlinedButton(
-        onPressed: () {
-          _isDisabled ? null : doc.update({'status': 'Claimed'});
-        },
-        child: Text(_isDisabled ? "Claimed" : "Claim"));
+    return Container(
+      width: double.infinity,
+      child: OutlinedButton(
+          onPressed: () {
+            _isDisabled ? null : doc.update({'status': 'Claimed'});
+          },
+          style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40)),
+              side: const BorderSide(color: Colors.red)),
+          child: Text(_isDisabled ? "Claimed" : "Claim")),
+    );
   }
 }
